@@ -8,16 +8,13 @@ import time
 import requests
 
 bot = Bot(token=TOKEN, parse_mode=types.ParseMode.HTML)
-#второй параметр для лучшего оформления карточек
-dp = Dispatcher(bot)  #для управления хэндлерами
-
-
+dp = Dispatcher(bot)  
 
 @dp.message_handler(commands='start')
-async def start(message: types.Message):  #функция ассинхронная,для ответа на команду старт
+async def start(message: types.Message):  
     num_buttoms = ['Give your number ☎️']
-    start_buttoms = ['🔪knives', '🥊gloves', '🔫sniper rifles']  #создаю клавиатуру в боте и добавляю в нее сразу несколько обьектов
-    keybord = types.ReplyKeyboardMarkup(resize_keyboard=True)  #создаю обьект клавиатуры, параметр что бы кнопки были нормальных размеров
+    start_buttoms = ['🔪knives', '🥊gloves', '🔫sniper rifles']  
+    keybord = types.ReplyKeyboardMarkup(resize_keyboard=True)  
     keybord.add(*start_buttoms)
     keybord.add(*num_buttoms)
     await message.answer('Hi, please,choose category!', reply_markup=keybord)
@@ -27,14 +24,14 @@ async def start(message: types.Message):  #функция ассинхронна
 async def get_discount_knives(message: types.Message):
     await message.answer('Please waiting...')
 
-    collect_data()#импорт для подгрузки данных из json файла в main
+    collect_data()
     with open('result1.json') as file:
         data = json.load(file)
-    for index, item in enumerate(data):#дает кроме обьекта индекс где он нахожуится enumerate
+    for index, item in enumerate(data):
         card = f'{hlink(item.get("fullName"), item.get("3d"))}\n'\
                f'{hbold("Discount: ")}{item.get("overprice")}%\n'\
                f'{hbold("Price: ")}${item.get("price")}🔥'
-        if index%20==0:#если индекс от деления на 20 будет 0 то засыпаем на 3 секунды что бы не было бана за флуд
+        if index % 20 == 0:
             time.sleep(3)
         await message.answer(card)
 @dp.message_handler(Text(equals='🔪knives'))
@@ -56,7 +53,7 @@ async def get_discount_gloves(message: types.Message):
 
         await message.answer(card)
 
-@dp.message_handler(Text(equals='🔫sniper rifles'))
+@dp.message_handler(Text(equals = '🔫sniper rifles'))
 async def get_discount_gloves(message: types.Message):
     await message.answer('Please waiting...')
 
