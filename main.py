@@ -9,17 +9,15 @@ def collect_data():
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.5 Safari/605.1.15"
     }
     offset = 0
-    batch_size = 60 #размер партии
+    batch_size = 60 
     result = []
     count = 0
     while True:
         for item in range(offset, offset + batch_size, 60):
             url = f'https://inventories.cs.money/5.0/load_bots_inventory/730?buyBonus=35&isStore=true&limit=60&maxPrice=10000&minPrice=2003.0646889741304&offset={item}&sort=botFirst&type=4&withStack=true'
-            #меняю url каждый раз на разные виды товаров для нового json
-            #меняю в оффсете хначение на item и меняю цену от 2000 тысяч в price номер 2
             response = requests.get(
-                url=url,
-                headers={'User-Agent':'Accept'}
+                url = url,
+                headers = {'User-Agent':'Accept'}
             )
             offset += batch_size
             data = response.json()
