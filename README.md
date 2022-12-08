@@ -1,6 +1,8 @@
 # My_bot_scr
-developments
+developments.
+
 When using the bot correctly, follow the instructions below:
+
 File config:
 - When creating a telegram bot, take the address of your token and insert it into the TOKEN.
 File main.py:
